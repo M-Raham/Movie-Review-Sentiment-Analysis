@@ -2,6 +2,9 @@ import nltk
 from nltk.corpus import movie_reviews
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
 
 # Download dataset
@@ -34,3 +37,22 @@ y = df['Sentiment']
 
 print("✅ TF-IDF Feature Extraction Completed!")
 print(f"Feature Matrix Shape: {X.shape}")  # Should print (2000, N) where N is the number of features
+
+# Split the dataset into training (80%) and testing (20%) sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+# Train the Logistic Regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Predict sentiments on the test set
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+
+print(f"✅ Model Training Completed! Accuracy: {accuracy:.2f}\n")
+print("Classification Report:")
+print(report)
