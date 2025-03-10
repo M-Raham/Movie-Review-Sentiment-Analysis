@@ -23,12 +23,6 @@ df["Review"] = df["Review"].apply(lambda words: " ".join(words))
 # Convert sentiment labels (pos/neg) to numerical (1/0)
 df["Sentiment"] = df["Sentiment"].map({"pos": 1, "neg": 0})
 
-# Display sample data
-print(df.head())
-
-# Check class distribution
-print(df["Sentiment"].value_counts())
-
 # Step 2: TF-IDF Feature Extraction
 tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_features=5000)
 X = tfidf_vectorizer.fit_transform(df['Review'])  # Fit & transform text data
@@ -63,20 +57,27 @@ print("✅ Model and Vectorizer Saved Successfully!")
 loaded_model = joblib.load("sentiment_analysis_model.pkl")
 loaded_vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
-# Step 8: Test on New Reviews
-test_reviews = [
-    "The movie was fantastic! The performances were Oscar-worthy.",
-    "I didn't enjoy the film. The plot was too predictable and boring.",
-    "An average movie with decent acting but poor screenplay.",
-]
+# Step 8: Simple CLI Interface for User Input
+def predict_sentiment(review):
+    # Convert the input review into TF-IDF features
+    review_features = loaded_vectorizer.transform([review])
+    
+    # Predict sentiment
+    prediction = loaded_model.predict(review_features)[0]
+    
+    # Interpret result
+    sentiment = "Positive 😊" if prediction == 1 else "Negative 😞"
+    return sentiment
 
-# Convert test reviews into TF-IDF features
-test_features = loaded_vectorizer.transform(test_reviews)  # ✅ Using loaded vectorizer
-
-# Predict sentiment
-predictions = loaded_model.predict(test_features)
-
-# Display results
-for review, sentiment in zip(test_reviews, predictions):
-    label = "Positive" if sentiment == 1 else "Negative"
-    print(f"Review: {review}\nPredicted Sentiment: {label}\n")
+# Interactive CLI Loop
+while True:
+    user_input = input("\nEnter a movie review (or type 'exit' to quit): ")
+    
+    if user_input.lower() == "exit":
+        print("Exiting sentiment analysis. Goodbye! 👋")
+        break
+    
+    # Predict sentiment
+    sentiment_result = predict_sentiment(user_input)
+    
+    print(f"Predicted Sentiment: {sentiment_result}")
