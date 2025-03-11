@@ -8,7 +8,7 @@ This project focuses on analyzing the sentiment of movie reviews using a machine
 
 - Text preprocessing and vectorization using **TF-IDF**.
 - Sentiment classification using a trained **ML model**.
-- Simple react web-app interface built with **HTML and Bootstrap**.
+- Simple react web-app interface built with **HTML, CSS and Bootstrap**.
 - FastAPI backend to handle predictions.
 
 ## 🛠️ Technologies Used
@@ -17,7 +17,7 @@ This project focuses on analyzing the sentiment of movie reviews using a machine
 - **FastAPI** (Backend API for model inference)
 - **Scikit-learn** (Machine learning model)
 - **Joblib** (Model serialization)
-- **HTML Bootstrap** (Frontend UI)
+- **HTML, CSS, Bootstrap** (Frontend UI)
 
 ## 🔧 Installation & Setup
 
