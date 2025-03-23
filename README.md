@@ -46,7 +46,9 @@ uvicorn app:app --reload
 
 ### 4️⃣ Open the frontend in a browser:
 
-Simply open **index.html** in your web browser to access the sentiment analysis interface (Just copy the path of index.html and paste it in your browser).
+Simply open **index.html** in your web browser to access the sentiment analysis interface.
+
+(copy the path of index.html and paste it in your browser)
 
 ## 📊 How It Works
 
